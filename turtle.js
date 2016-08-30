@@ -15,6 +15,9 @@ turtle.birth = function()
 	turtle.path.x = null;
 	turtle.path.y = null;
 	
+	turtle.shape = [];
+	turtle.shape.push({x: turtle.x, y: turtle.y, down: true});
+	
 	turtle.pen = {}; // pen properties
 	turtle.pen.down = true;
 	turtle.pen.fillcolor = "White";
@@ -27,8 +30,12 @@ turtle.drop = function()
 {
 	tanvas.clearRect(0, 0, t.width, t.height);
 	
-	tanvas.lineWidth = 2;
+	tanvas.lineWidth = 3;
 	tanvas.strokeStyle = "Black";
+	if (!turtle.pen.down)
+	{
+		tanvas.setLineDash([4, 2]);
+	}
 	
 	tanvas.beginPath();
 	tanvas.arc(turtle.x, turtle.y, 10, 0, 2*Math.PI);
@@ -36,8 +43,9 @@ turtle.drop = function()
 	
 	var x = turtle.x + 10 * Math.cos(turtle.angle);
 	var y = turtle.y + 10 * Math.sin(turtle.angle);
-	tanvas.lineWidth = 5;
+	tanvas.lineWidth = 6;
 	tanvas.strokeStyle = turtle.pen.linecolor;
+	tanvas.setLineDash([0]);
 	tanvas.fillStyle = turtle.pen.fillcolor;
 	tanvas.beginPath();
 	tanvas.arc(x, y, 4, 0, 2*Math.PI);
@@ -56,49 +64,31 @@ var home = function()
 var go = function(dir, dist)
 {
 	// set line color and width
+	canvas.globalCompositeOperation = "destination-over";
 	canvas.strokeStyle = turtle.pen.linecolor;
 	canvas.lineWidth = turtle.pen.linewidth;
+	canvas.lineCap = "square";
 	
 	// calculate end coordinates
 	var x = turtle.x + dist * dir * Math.cos(turtle.angle);
 	var y = turtle.y + dist * dir * Math.sin(turtle.angle);
 	
-	// draw/move
-	if (turtle.pen.down) // draw
+	turtle.shape.push({x: x, y: y, down: turtle.pen.down});
+	
+	canvas.beginPath();
+	canvas.moveTo(turtle.shape[0].x, turtle.shape[0].y);
+	for (var i=1; i<turtle.shape.length; i++)
 	{
-		/*canvas.beginPath();
-		canvas.moveTo(turtle.x, turtle.y);
-		canvas.lineTo(x, y);
-		canvas.stroke();
-		canvas.closePath();
-		console.log("draw", typeof(turtle.pen.down));*/
-		
-		
-		if (turtle.path.x == null && turtle.path.y == null) // start a new path
+		if (turtle.shape[i].down)
 		{
-			turtle.path.x = turtle.x;
-			turtle.path.y = turtle.y;
-			canvas.beginPath();
-			canvas.moveTo(turtle.x, turtle.y);
-			console.log("start");
+			canvas.lineTo(turtle.shape[i].x, turtle.shape[i].y);
 		}
-		canvas.lineTo(x, y); // draw line
-			console.log("in");
-		if (turtle.path.x <= x+1 && turtle.path.x >= x-1 && turtle.path.y <= y+1 && turtle.path.y >= y-1) // close the current path
+		else
 		{
-			turtle.path.x = null;
-			turtle.path.y = null;
-			canvas.closePath();
-			console.log("close");
+			canvas.moveTo(turtle.shape[i].x, turtle.shape[i].y);
 		}
-		canvas.stroke();
 	}
-	else // jump
-	{
-		turtle.path.x = null; // force-start new path
-		turtle.path.y = null;
-		canvas.moveTo(x, y);
-	}
+	canvas.stroke();
 	
 	// set turtle coordinates
 	turtle.x = x;
@@ -128,9 +118,6 @@ var fill = function()
 // set pen values
 var set = function(name, value)
 {
-	// save previous canvas state
-	canvas.save();
-	
 	// fix boolean messed up by the interpreter
 	if (name === "down")
 	{
@@ -142,4 +129,27 @@ var set = function(name, value)
 	
 	// redraw turtle
 	turtle.drop();
+};
+
+// generate a random color
+var randomcolor = function(which)
+{
+	// create color
+	var rand = Math.floor(Math.random() * 12);
+	rand = (which === "linecolor" && rand === 3) ? 2 : rand;
+	rand = (which === "fillcolor" && rand === 0) ? 1 : rand;
+	var colors = ["Black", "Grey", "LightGrey", "White", "Blue", "LightBlue", "Green", "LightGreen", "Red", "Pink", "Orange", "Yellow"];
+	
+	set(which, colors[rand]);
+};
+
+// generate a random integer
+var randomnumber = function(min, max)
+{
+	min = parseInt(min);
+	max = parseInt(max);
+	var value = Math.round(Math.random() * (max - min) + min);
+	console.log(value);
+	
+	return value;
 };
