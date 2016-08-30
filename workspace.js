@@ -23,51 +23,52 @@ var m; // mouse left button flag
 // stuff to do on page load
 window.addEventListener("DOMContentLoaded", function()
 {
-	/* === init the toolbox === */
-	var toolbox = document.createElement("xml");
+	/* === create toolboxes === */
+	var toolboxes = {};
 	
-	var cat = document.createElement("category");
-	cat.setAttribute("name", "Teknős");
-	cat.setAttribute("colour", "250");
-	//cat.setAttribute("expanded", "true");
-	cat.innerHTML += "<block type='turtle_go'></block>";
-	cat.innerHTML += "<block type='turtle_turn'></block>";
-	cat.innerHTML += "<block type='turtle_pen'></block>";
-	cat.innerHTML += "<block type='turtle_linewidth'></block>";
-	cat.innerHTML += "<block type='turtle_linecolor'></block>";
-	cat.innerHTML += "<block type='turtle_fillcolor'></block>";
-	cat.innerHTML += "<block type='turtle_fill'></block>";
-	cat.innerHTML += "<block type='turtle_home'></block>";
-	toolbox.appendChild(cat);
+	toolboxes.drawtools = document.createElement("xml");
+	toolboxes.drawtools.innerHTML += "<block type='turtle_go'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_turn'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_pen'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_linewidth'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_linecolor'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_fillcolor'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_fill'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_home'></block>";
 	
-	var cat = document.createElement("category");
-	cat.setAttribute("name", "Vezérlés");
-	cat.setAttribute("colour", "50");
-	cat.innerHTML += "<block type='turtle_loopfor'></block>";
-	cat.innerHTML += "<block type='turtle_loopwhile'></block>";
-	cat.innerHTML += "<block type='turtle_if'></block>";
-	cat.innerHTML += "<block type='turtle_ifelse'></block>";
-	toolbox.appendChild(cat);
+	toolboxes.controltools = document.createElement("xml");
+	toolboxes.controltools.innerHTML += "<block type='turtle_loopfor'></block>";
+	toolboxes.controltools.innerHTML += "<block type='turtle_loopwhile'></block>";
+	toolboxes.controltools.innerHTML += "<block type='turtle_if'></block>";
+	toolboxes.controltools.innerHTML += "<block type='turtle_ifelse'></block>";
 	
-	var cat = document.createElement("category");
-	cat.setAttribute("name", "Függvények");
-	cat.setAttribute("colour", "150");
-	cat.innerHTML += "<block type='turtle_functiondef'></block>";
-	cat.innerHTML += "<block type='turtle_functioncall'></block>";
-	cat.innerHTML += "<block type='turtle_randomcolor'></block>";
-	toolbox.appendChild(cat);
+	toolboxes.functiontools = document.createElement("xml");
+	toolboxes.functiontools.innerHTML += "<block type='turtle_functiondef'></block>";
+	toolboxes.functiontools.innerHTML += "<block type='turtle_functioncall'></block>";
+	toolboxes.functiontools.innerHTML += "<block type='turtle_randomcolor'></block>";
 	
-	var cat = document.createElement("category");
-	cat.setAttribute("name", "Változók");
-	cat.setAttribute("colour", "200");
-	cat.innerHTML += "<block type='turtle_vardef'></block>";
-	cat.innerHTML += "<block type='turtle_varass'></block>";
-	toolbox.appendChild(cat);
+	toolboxes.variabletools = document.createElement("xml");
+	toolboxes.variabletools.innerHTML += "<block type='turtle_vardef'></block>";
+	toolboxes.variabletools.innerHTML += "<block type='turtle_randomnumber'></block>";
+	
+	var toolboxcontrols = document.querySelectorAll("#toolboxes input");
+	for (var i=0; i<toolboxcontrols.length; i++)
+	{
+		toolboxcontrols[i].addEventListener("click", function(e)
+		{
+			workspace.updateToolbox(toolboxes[e.target.id]);
+			for (var i=0; i<toolboxcontrols.length; i++)
+			{
+				toolboxcontrols[i].classList.remove("open");
+			}
+			e.target.classList.add("open");
+		});
+	}
 	
 	/* === init the workspace === */
 	workspace = Blockly.inject("blockly",
 	{
-		toolbox: toolbox,
+		toolbox: toolboxes.drawtools,
 		comments: false,
 		sounds: false,
 		trashcan: false,
@@ -78,7 +79,7 @@ window.addEventListener("DOMContentLoaded", function()
 	Blockly.JavaScript.addReservedWords("highlightBlock");
 	workspace.addChangeListener(Blockly.Events.disableOrphans);
 	
-	// scroll
+	// set scroll stuff
 	scrollx = document.getElementById("scroll-x"); // get scrollbars
 	scrolly = document.getElementById("scroll-y");
 	scrollx.style.width = (1920 - ((1920 - window.innerWidth) * 2)) - 10 + "px"; // set scrollbar dimensions
@@ -89,18 +90,15 @@ window.addEventListener("DOMContentLoaded", function()
 	window.scrollTo(0, 0);
 	
 	// set starting block
-	var xml_text = "<xml><block type='turtle_main' deletable='false' x='150' y='20'></block></xml>";
+	var xml_text = "<xml><block type='turtle_main' deletable='false' x='100' y='20'></block></xml>";
 	var xml = Blockly.Xml.textToDom(xml_text);
 	Blockly.Xml.domToWorkspace(xml, workspace);
 	
 	/* === init the canvases === */
 	c = document.getElementById("canvas"); // drawing
 	canvas = c.getContext("2d");
-	canvas.globalCompositeOperation = "destination-over";
-	canvas.lineCap = "square";
 	c.width = c.clientWidth;
 	c.height = c.clientHeight;
-	clear();
 	
 	t = document.getElementById("turtle"); // overlay
 	tanvas = t.getContext("2d");
@@ -134,12 +132,6 @@ window.addEventListener("DOMContentLoaded", function()
 		paused = false;
 	});
 	
-	// show code
-	/*document.getElementById("code").addEventListener("click", function()
-	{
-		alert(Blockly.JavaScript.workspaceToCode(workspace));
-	});*/
-	
 	// save image
 	document.getElementById("img").addEventListener("click", function()
 	{
@@ -147,6 +139,8 @@ window.addEventListener("DOMContentLoaded", function()
 		var ctx = composite.getContext("2d");
 		composite.width = 1920;
 		composite.height = 1080;
+		ctx.fillStyle = "White";
+		ctx.fillRect(0, 0, 1920, 1080);
 		
 		var img = document.createElement("img"); // create a new image
 		svgAsDataUri(document.querySelector("svg"), {}, function(uri) // load SVG to data URI
@@ -180,7 +174,7 @@ window.addEventListener("DOMContentLoaded", function()
 		if (window.confirm("Szeretnéd törölni a jelenlegi kódot?") === true)
 		{
 			Blockly.mainWorkspace.clear();
-			clear();
+			canvas.clearRect(0, 0, 1920, 1080);
 		}
 		
 		// create input and load file(s)
@@ -226,24 +220,20 @@ window.addEventListener("DOMContentLoaded", function()
 	document.querySelector(".blocklyMainBackground").addEventListener("mousedown", function(e)
 	{
 		m = true;
+		mx = e.clientX;
+		my = e.clientY;
 	});
 	document.querySelector(".blocklyMainBackground").addEventListener("mousemove", function(e)
 	{
 		if (m === true)
 		{
-			if (mx && my)
-			{
-				window.scrollBy(-(e.clientX - mx), -(e.clientY - my));
-				document.querySelector(".blocklyFlyout").style.transform = "translate(" + (window.pageXOffset + 130) + ", " + window.pageYOffset + ")";
-			}
+			window.scrollBy(-(e.clientX - mx), -(e.clientY - my));
 			mx = e.clientX;
 			my = e.clientY;
 		}
 	});
 	window.addEventListener("mouseup", function()
 	{
-		mx = null;
-		xy = null;
 		m = false;
 	});
 	
@@ -254,7 +244,8 @@ window.addEventListener("DOMContentLoaded", function()
 	});
 	
 	// drop the turtle anywhere onto the canvas
-	document.querySelector("svg").addEventListener("dblclick", function(e)
+	stopped = true;
+	document.querySelector(".blocklyMainBackground").addEventListener("dblclick", function(e)
 	{
 		if (stopped)
 		{
@@ -276,12 +267,6 @@ window.addEventListener("DOMContentLoaded", function()
 }, false);
 
 /* === helper functions === */
-function clear() // clear the canvas
-{
-	canvas.fillStyle = "White";
-	canvas.fillRect(0, 0, c.width, c.height);
-}
-
 function step() // delay execution
 {
 	if (!paused)
@@ -294,6 +279,8 @@ function step() // delay execution
 			{
 				clearInterval(interval);
 				stopped = true;
+				document.getElementById("pause").disabled = true;
+				document.getElementById("resume").disabled = true;
 				return;
 			}
 		}
@@ -302,7 +289,7 @@ function step() // delay execution
 
 function draw() // get generated code and draw it
 {
-	clear(); // clear the canvas
+	canvas.clearRect(0, 0, 1920, 1080); // clear the canvas
 	turtle.birth(); // recreate turtle
 	turtle.drop(); // drop it to the playground
 	
@@ -310,6 +297,7 @@ function draw() // get generated code and draw it
 	window.LoopTrap = 1000;
 	Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
 	var code = Blockly.JavaScript.workspaceToCode(workspace);
+	console.log(code);
 	interpreter = new Interpreter(code, initApi);
 	lastBlockToHighlight = null;
 	
@@ -317,6 +305,7 @@ function draw() // get generated code and draw it
 	running = false;
 	paused = false;
 	stopped = false;
+	document.getElementById("pause").disabled = false;
 	workspace.traceOn(true);
 	workspace.highlightBlock(null);
 	interval = setInterval(step, turtle.wait);
@@ -389,4 +378,21 @@ function initApi(interpreter, scope) // push custom functions to the interpreter
 		return interpreter.createPrimitive(home());
 	};
 	interpreter.setProperty(scope, "home", interpreter.createNativeFunction(wrapper));
+	
+	// random color
+	var wrapper = function(which)
+	{
+		which = which ? which.toString() : "";
+		return interpreter.createPrimitive(randomcolor(which));
+	};
+	interpreter.setProperty(scope, "randomcolor", interpreter.createNativeFunction(wrapper));
+	
+	// random number
+	var wrapper = function(min, max)
+	{
+		min = min ? min.toString() : "1";
+		max = max ? max.toString() : "10";
+		return interpreter.createPrimitive(randomnumber(min, max));
+	};
+	interpreter.setProperty(scope, "randomnumber", interpreter.createNativeFunction(wrapper));
 }

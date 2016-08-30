@@ -1,0 +1,6 @@
+.blocklyMainBackground {
+stroke-width: 0 !important;
+cursor: move !important;}
+
+.blocklyFlyout .blocklyWorkspace {
+transform: translate(0, 50px);}
