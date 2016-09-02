@@ -107,16 +107,17 @@ Blockly.JavaScript["turtle_vardef"] = function(block)
 	var name = block.getFieldValue("NÉV");
 	var value = block.getFieldValue("ÉRTÉK");
 	
-	return "var " + name + " = " + value + ";\n";
+	return "var " + name + "=" + value + ";\n";
 };
 
-Blockly.JavaScript["turtle_varass"] = function(block)
+Blockly.JavaScript["turtle_randomnumber"] = function(block)
 {
 	// get parameters
 	var name = block.getFieldValue("NÉV");
-	var value = block.getFieldValue("ÉRTÉK");
+	var min = block.getFieldValue("TÓL");
+	var max = block.getFieldValue("IG");
 	
-	return name + " = " + value + ";\n";
+	return "var " + name + " = randomnumber(" + min + ", " + max + ");\n";
 };
 
 Blockly.JavaScript["turtle_functiondef"] = function(block)
@@ -143,11 +144,5 @@ Blockly.JavaScript["turtle_randomcolor"] = function(block)
 	// get parameters
 	var which = (block.getFieldValue("MELYIK") === "vonal") ? "linecolor" : "fillcolor";
 	
-	// create color
-	var rand = Math.floor(Math.random() * 12);
-	rand = (which === "linecolor" && rand === 3) ? 2 : rand;
-	rand = (which === "fillcolor" && rand === 0) ? 1 : rand;
-	var colors = ["Black", "Grey", "LightGrey", "White", "Blue", "LightBlue", "Green", "LightGreen", "Red", "Pink", "Orange", "Yellow"];
-	
-	return "set('" + which + "', '" + colors[rand] + "');\n";
+	return "randomcolor('" + which + "');\n";
 };
