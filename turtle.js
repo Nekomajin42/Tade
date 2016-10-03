@@ -11,13 +11,6 @@ turtle.birth = function()
 	turtle.sleep = false;
 	turtle.looptrap = 1000;
 	
-	turtle.path = {}; // start coordinates of the current path (force new path)
-	turtle.path.x = null;
-	turtle.path.y = null;
-	
-	turtle.shape = [];
-	turtle.shape.push({x: turtle.x, y: turtle.y, down: true});
-	
 	turtle.pen = {}; // pen properties
 	turtle.pen.down = true;
 	turtle.pen.fillcolor = "White";
@@ -57,6 +50,7 @@ var home = function()
 {
 	turtle.x = turtle.origin.x;
 	turtle.y = turtle.origin.y;
+	turtle.angle = -90 * Math.PI / 180;
 	turtle.drop();
 }
 
@@ -64,29 +58,24 @@ var home = function()
 var go = function(dir, dist)
 {
 	// set line color and width
-	canvas.globalCompositeOperation = "destination-over";
 	canvas.strokeStyle = turtle.pen.linecolor;
 	canvas.lineWidth = turtle.pen.linewidth;
-	canvas.lineCap = "square";
+	canvas.lineCap = "round";
 	
 	// calculate end coordinates
 	var x = turtle.x + dist * dir * Math.cos(turtle.angle);
 	var y = turtle.y + dist * dir * Math.sin(turtle.angle);
 	
-	turtle.shape.push({x: x, y: y, down: turtle.pen.down});
-	
+	// draw the path
 	canvas.beginPath();
-	canvas.moveTo(turtle.shape[0].x, turtle.shape[0].y);
-	for (var i=1; i<turtle.shape.length; i++)
+	canvas.moveTo(turtle.x, turtle.y);
+	if (turtle.pen.down)
 	{
-		if (turtle.shape[i].down)
-		{
-			canvas.lineTo(turtle.shape[i].x, turtle.shape[i].y);
-		}
-		else
-		{
-			canvas.moveTo(turtle.shape[i].x, turtle.shape[i].y);
-		}
+		canvas.lineTo(x, y);
+	}
+	else
+	{
+		canvas.moveTo(x, y);
 	}
 	canvas.stroke();
 	
@@ -109,10 +98,48 @@ var turn = function(dir, deg)
 };
 
 // fill
+var target, replace, count;
 var fill = function()
 {
-	canvas.fillStyle = turtle.pen.fillcolor;
-	canvas.fill();
+	// get the target color
+	target = canvas.getImageData(Math.round(turtle.x), Math.round(turtle.y), 1, 1);
+	
+	// get the replace color
+	var ctx = document.createElement("canvas").getContext("2d");
+	ctx.fillSytle = turtle.pen.fillcolor;
+	ctx.fillRect(0, 0, 1, 1);
+	replace = ctx.getImageData(0, 0, 1, 1);
+	count = 0;
+	
+	var points = [];
+	var point;
+	var pixel;
+	points.push([turtle.x, turtle.y]);
+	while (points.length > 0 && count < 100000)
+	{
+		point = points.pop();
+		canvas.putImageData(replace, point[0], point[1]);
+		
+		count++;
+		console.log(count, points.length, points);
+		
+		if (canvas.getImageData(point[0]+1, point[1], 1, 1).data.toString() === target.data.toString())
+		{
+			points.push([point[0]+1, point[1]]);
+		}
+		if (canvas.getImageData(point[0]-1, point[1], 1, 1).data.toString() === target.data.toString())
+		{
+			points.push([point[0]-1, point[1]]);
+		}
+		if (canvas.getImageData(point[0], point[1]+1, 1, 1).data.toString() === target.data.toString())
+		{
+			points.push([point[0], point[1]+1]);
+		}
+		if (canvas.getImageData(point[0], point[1]-1, 1, 1).data.toString() === target.data.toString())
+		{
+			points.push([point[0], point[1]-1]);
+		}
+	}
 };
 
 // set pen values

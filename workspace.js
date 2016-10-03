@@ -32,8 +32,8 @@ window.addEventListener("DOMContentLoaded", function()
 	toolboxes.drawtools.innerHTML += "<block type='turtle_pen'></block>";
 	toolboxes.drawtools.innerHTML += "<block type='turtle_linewidth'></block>";
 	toolboxes.drawtools.innerHTML += "<block type='turtle_linecolor'></block>";
-	toolboxes.drawtools.innerHTML += "<block type='turtle_fillcolor'></block>";
-	toolboxes.drawtools.innerHTML += "<block type='turtle_fill'></block>";
+	//toolboxes.drawtools.innerHTML += "<block type='turtle_fillcolor'></block>";
+	//toolboxes.drawtools.innerHTML += "<block type='turtle_fill'></block>";
 	toolboxes.drawtools.innerHTML += "<block type='turtle_home'></block>";
 	
 	toolboxes.controltools = document.createElement("xml");
@@ -260,8 +260,8 @@ window.addEventListener("DOMContentLoaded", function()
 	
 	// create the turtle in the middle of the screen
 	turtle.origin = {};
-	turtle.origin.x = Math.round(c.width/2);
-	turtle.origin.y = Math.round(c.height/2);
+	turtle.origin.x = Math.round(1920/2);
+	turtle.origin.y = Math.round(1080/2);
 	turtle.birth();
 	turtle.drop();
 }, false);

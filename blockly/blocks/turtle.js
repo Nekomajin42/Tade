@@ -298,7 +298,7 @@ Blockly.Blocks["turtle_functiondef"] =
 			.appendField("Megtanul")
 			.appendField(new Blockly.FieldTextInput("művelet"), "NÉV")
 			.appendField("paraméterek:")
-			.appendField(new Blockly.FieldTextInput("x"), "PARAMÉTEREK");
+			.appendField(new Blockly.FieldTextInput(""), "PARAMÉTEREK");
 		this.appendStatementInput("TÖRZS");
 		this.setTooltip("Létrehoz egy függvényt a megadott névvel, bemeneti paraméterekkel és a blokk belsejében lévő műveletekkel.");
 		this.setColour(120);
@@ -318,7 +318,7 @@ Blockly.Blocks["turtle_functioncall"] =
 			.appendField("Végrehajt")
 			.appendField(new Blockly.FieldTextInput("művelet"), "NÉV")
 			.appendField("paraméterek:")
-			.appendField(new Blockly.FieldTextInput("x"), "PARAMÉTEREK");
+			.appendField(new Blockly.FieldTextInput(""), "PARAMÉTEREK");
 		this.setTooltip("Meghív egy függvényt a megadott névvel és bemeneti paraméterekkel.");
 		this.setColour(120);
 	}
