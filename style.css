@@ -1,3 +1,13 @@
+/* @font-face kit by Fonts2u (http://www.fonts2u.com) */
+@font-face {
+font-family: "Symbola";
+src: url("Symbola_hint.eot?") format("eot");
+src: url("Symbola_hint.woff") format("woff");
+src: url("Symbola_hint.ttf") format("truetype");
+src: url("Symbola_hint.svg#Symbola") format("svg");
+font-weight: normal;
+font-style:normal;}
+
 * {
 box-sizing: border-box;}
 
