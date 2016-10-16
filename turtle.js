@@ -176,7 +176,6 @@ var randomnumber = function(min, max)
 	min = parseInt(min);
 	max = parseInt(max);
 	var value = Math.round(Math.random() * (max - min) + min);
-	console.log(value);
 	
 	return value;
 };

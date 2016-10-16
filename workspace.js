@@ -8,7 +8,9 @@
  * - Create the turtle
  */
 
-// global variables
+/**
+ * Declare global variables
+ */
 var c, canvas; // drawing canvas and context
 var t, tanvas; // overlay canvas and context
 var workspace; // Blockly SVG
@@ -23,7 +25,10 @@ var m; // mouse left button flag
 // stuff to do on page load
 window.addEventListener("DOMContentLoaded", function()
 {
-	/* === create toolboxes === */
+	/**
+	 * - Build the toolboxes
+	 * - Make the toolbox toolbar work
+	 */
 	var toolboxes = {};
 	
 	toolboxes.drawtools = document.createElement("xml");
@@ -65,7 +70,11 @@ window.addEventListener("DOMContentLoaded", function()
 		});
 	}
 	
-	/* === init the workspace === */
+	/**
+	 * Initialize the workspace
+	 * - Set properties
+	 * - Insert the START block
+	 */
 	workspace = Blockly.inject("blockly",
 	{
 		toolbox: toolboxes.drawtools,
@@ -79,22 +88,13 @@ window.addEventListener("DOMContentLoaded", function()
 	Blockly.JavaScript.addReservedWords("highlightBlock");
 	workspace.addChangeListener(Blockly.Events.disableOrphans);
 	
-	// set scroll stuff
-	scrollx = document.getElementById("scroll-x"); // get scrollbars
-	scrolly = document.getElementById("scroll-y");
-	scrollx.style.width = (1920 - ((1920 - window.innerWidth) * 2)) - 10 + "px"; // set scrollbar dimensions
-	scrolly.style.height = (1080 - ((1080 - window.innerHeight) * 2)) - 10 + "px";
-	ox = (1920 - window.innerWidth) /2; // set initial scroll offset
-	oy = (1080 - window.innerHeight) /2;
-	//window.scrollTo((1920 - window.innerWidth) / 2, (1080 - window.innerHeight) / 2); // scroll to the middle of the screen
-	window.scrollTo(0, 0);
-	
-	// set starting block
 	var xml_text = "<xml><block type='turtle_main' deletable='false' x='100' y='20'></block></xml>";
 	var xml = Blockly.Xml.textToDom(xml_text);
 	Blockly.Xml.domToWorkspace(xml, workspace);
 	
-	/* === init the canvases === */
+	/**
+	 * Initialize the canvases
+	 */
 	c = document.getElementById("canvas"); // drawing
 	canvas = c.getContext("2d");
 	c.width = c.clientWidth;
@@ -105,34 +105,67 @@ window.addEventListener("DOMContentLoaded", function()
 	t.width = t.clientWidth;
 	t.height = t.clientHeight;
 	
-	/* === catch toolbar events === */
-	document.getElementById("draw").addEventListener("click", function() // run the code
+	/**
+	 * Build the scroll markers
+	 */
+	scrollx = document.getElementById("scroll-x"); // get scrollbars
+	scrolly = document.getElementById("scroll-y");
+	scrollx.style.width = (1920 - ((1920 - window.innerWidth) * 2)) - 10 + "px"; // set scrollbar dimensions
+	scrolly.style.height = (1080 - ((1080 - window.innerHeight) * 2)) - 10 + "px";
+	ox = (1920 - window.innerWidth) /2; // set initial scroll offset
+	oy = (1080 - window.innerHeight) /2;
+	//window.scrollTo((1920 - window.innerWidth) / 2, (1080 - window.innerHeight) / 2); // scroll to the middle of the screen
+	window.scrollTo(0, 0);
+	
+	/**
+	 * Create the turtle at the middle of the screen
+	 */
+	turtle.origin = {};
+	turtle.origin.x = Math.round(1920/2);
+	turtle.origin.y = Math.round(1080/2);
+	turtle.birth();
+	turtle.drop();
+	
+	/**
+	 * Start / continue code execution
+	 */
+	stopped = true;
+	document.getElementById("play").addEventListener("click", function()
 	{
-		draw();
+		paused = false;
+		document.getElementById("pause").disabled = false;
+		if (stopped)
+		{
+			draw();
+		}
+		else
+		{
+			step();
+		}
 	});
 	
-	document.getElementById("delay").addEventListener("change", function(e)
-	{
-		turtle.wait = e.target.value;
-	});
-	
-	// pause/step execution
+	/**
+	 * Pause / step code execution
+	 */
 	document.getElementById("pause").addEventListener("click", function()
 	{
-		document.getElementById("resume").disabled = false;
+		//document.getElementById("resume").disabled = false;
 		paused = false;
 		step();
 		paused = true;
 	});
 	
-	// resume execution
-	document.getElementById("resume").addEventListener("click", function()
+	/**
+	 * Set the speed/delay of the code execution
+	 */
+	document.getElementById("delay").addEventListener("change", function(e)
 	{
-		this.disabled = true;
-		paused = false;
+		turtle.wait = e.target.value;
 	});
 	
-	// save image
+	/**
+	 * Save the workspace as image (.png)
+	 */
 	document.getElementById("img").addEventListener("click", function()
 	{
 		var composite = document.createElement("canvas"); // create a new canvas
@@ -158,7 +191,9 @@ window.addEventListener("DOMContentLoaded", function()
 		});
 	});
 	
-	// save workspace
+	/**
+	 * Save the workspace as XML (.turtle)
+	 */
 	document.getElementById("save").addEventListener("click", function()
 	{
 		var xml = Blockly.Xml.workspaceToDom(workspace);
@@ -167,7 +202,9 @@ window.addEventListener("DOMContentLoaded", function()
 		saveAs(file);
 	});
 	
-	// open workspace
+	/**
+	 * Open the workspace from XML (.turtle)
+	 */
 	document.getElementById("open").addEventListener("click", function()
 	{
 		// confirm remove
@@ -199,24 +236,18 @@ window.addEventListener("DOMContentLoaded", function()
 		});
 	});
 	
-	// redraw image on window resizeBy
-	window.addEventListener("resize", function()
-	{
-		c.width = c.clientWidth;
-		c.height = c.clientHeight;
-		t.width = t.clientWidth;
-		t.height = t.clientHeight;
-		draw();
-	});
-	
-	// confirm tab close
+	/**
+	 * Confirm tab close
+	 */
 	/*window.addEventListener("beforeunload", function(e)
 	{
 		e.returnValue = "Bye-bye!";
 		return "Bye-bye!";
 	});*/
 	
-	// drag the workspace
+	/**
+	 * Make the workspace draggable by mouse
+	 */
 	document.querySelector(".blocklyMainBackground").addEventListener("mousedown", function(e)
 	{
 		m = true;
@@ -236,15 +267,15 @@ window.addEventListener("DOMContentLoaded", function()
 	{
 		m = false;
 	});
-	
 	window.addEventListener("scroll", function()
 	{
 		scrollx.style.left = (window.pageXOffset) + "px";
 		scrolly.style.top = (window.pageYOffset) + "px";
 	});
 	
-	// drop the turtle anywhere onto the canvas
-	stopped = true;
+	/**
+	 * Drop the turtle anywhere on the workspace with double click
+	 */
 	document.querySelector(".blocklyMainBackground").addEventListener("dblclick", function(e)
 	{
 		if (stopped)
@@ -257,17 +288,12 @@ window.addEventListener("DOMContentLoaded", function()
 			turtle.drop();
 		}
 	});
-	
-	// create the turtle in the middle of the screen
-	turtle.origin = {};
-	turtle.origin.x = Math.round(1920/2);
-	turtle.origin.y = Math.round(1080/2);
-	turtle.birth();
-	turtle.drop();
-}, false);
+});
 
-/* === helper functions === */
-function step() // delay execution
+/**
+ * Execute the code step by step
+ */
+function step()
 {
 	if (!paused)
 	{
@@ -280,14 +306,17 @@ function step() // delay execution
 				clearInterval(interval);
 				stopped = true;
 				document.getElementById("pause").disabled = true;
-				document.getElementById("resume").disabled = true;
 				return;
 			}
 		}
 	}
 }
 
-function draw() // get generated code and draw it
+/**
+ * Get the generated code from the parser
+ * Draw the stuff
+ */
+function draw()
 {
 	canvas.clearRect(0, 0, 1920, 1080); // clear the canvas
 	turtle.birth(); // recreate turtle
@@ -311,6 +340,10 @@ function draw() // get generated code and draw it
 	interval = setInterval(step, turtle.wait);
 }
 
+/**
+ * Catch endless loops and terminate them
+ * TODO: make this work
+ */
 function terminate() // terminate infinite(ish) loops
 {
 	console.log(turtle.looptrap);
@@ -325,7 +358,18 @@ function terminate() // terminate infinite(ish) loops
 	}
 }
 
-function initApi(interpreter, scope) // push custom functions to the interpreter
+/**
+ * Push custom functions to the interpreter:
+ * - highlight
+ * - go
+ * - turn
+ * - set
+ * - fill
+ * - home
+ * - random color
+ * - random number
+ */
+function initApi(interpreter, scope)
 {
 	// highlight
 	var wrapper = function(id)
@@ -338,7 +382,7 @@ function initApi(interpreter, scope) // push custom functions to the interpreter
 	};
 	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
 	
-	// GO
+	// go
 	var wrapper = function(dir, dist)
 	{
 		dir = dir ? dir.toString() : "";
@@ -347,7 +391,7 @@ function initApi(interpreter, scope) // push custom functions to the interpreter
 	};
 	interpreter.setProperty(scope, "go", interpreter.createNativeFunction(wrapper));
 	
-	// TURN
+	// turn
 	var wrapper = function(dir, angle)
 	{
 		dir = dir ? dir.toString() : "";
@@ -356,7 +400,7 @@ function initApi(interpreter, scope) // push custom functions to the interpreter
 	};
 	interpreter.setProperty(scope, "turn", interpreter.createNativeFunction(wrapper));
 	
-	// SET
+	// set
 	var wrapper = function(name, value)
 	{
 		name = name ? name.toString() : "";
