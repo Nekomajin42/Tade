@@ -1,0 +1,52 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="turtle_main" id="bUd#PEl2R}1o10JBNXGh" deletable="false" x="177" y="17">
+    <statement name="TÖRZS">
+      <block type="turtle_loopfor" id="j(/SeT~J|weOnDg!m{83">
+        <field name="ISMÉTELD">6</field>
+        <statement name="TÖRZS">
+          <block type="turtle_functioncall" id="uoBA/@v+QY|HWVkW%J5:">
+            <field name="NÉV">hatszög</field>
+            <field name="PARAMÉTEREK">100</field>
+            <next>
+              <block type="turtle_turn" id="q(pb5~OkA};TPdgWEA.z">
+                <field name="IRÁNY">balra</field>
+                <field name="MENNYIT">60</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="turtle_functiondef" id="5up~SfK0AuC`N:.r^},?" x="617" y="22">
+    <field name="NÉV">hatszög</field>
+    <field name="PARAMÉTEREK">oldalhossz</field>
+    <statement name="TÖRZS">
+      <block type="turtle_linewidth" id="MG2G4xX8iT!;1wO.c%Ie">
+        <field name="VASTAGSÁG">10</field>
+        <next>
+          <block type="turtle_randomcolor" id="Ue=~Tad/7Va{VB@)0|H,">
+            <field name="MELYIK">vonal</field>
+            <next>
+              <block type="turtle_loopfor" id="D=[VB^qFB2@xA{:)DTiA">
+                <field name="ISMÉTELD">6</field>
+                <statement name="TÖRZS">
+                  <block type="turtle_go" id="l_sc[x`H}NUklaJu4;6t">
+                    <field name="IRÁNY">előre</field>
+                    <field name="MENNYIT">oldalhossz</field>
+                    <next>
+                      <block type="turtle_turn" id="P-?=QR)gs8!7!Z+|sz9a">
+                        <field name="IRÁNY">balra</field>
+                        <field name="MENNYIT">60</field>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

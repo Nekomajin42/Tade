@@ -37,8 +37,8 @@ window.addEventListener("DOMContentLoaded", function()
 	toolboxes.drawtools.innerHTML += "<block type='turtle_pen'></block>";
 	toolboxes.drawtools.innerHTML += "<block type='turtle_linewidth'></block>";
 	toolboxes.drawtools.innerHTML += "<block type='turtle_linecolor'></block>";
-	//toolboxes.drawtools.innerHTML += "<block type='turtle_fillcolor'></block>";
-	//toolboxes.drawtools.innerHTML += "<block type='turtle_fill'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_fillcolor'></block>";
+	toolboxes.drawtools.innerHTML += "<block type='turtle_fill'></block>";
 	toolboxes.drawtools.innerHTML += "<block type='turtle_home'></block>";
 	
 	toolboxes.controltools = document.createElement("xml");
@@ -149,7 +149,6 @@ window.addEventListener("DOMContentLoaded", function()
 	 */
 	document.getElementById("pause").addEventListener("click", function()
 	{
-		//document.getElementById("resume").disabled = false;
 		paused = false;
 		step();
 		paused = true;
@@ -238,6 +237,7 @@ window.addEventListener("DOMContentLoaded", function()
 	
 	/**
 	 * Confirm tab close
+	 * TODO: Find a way to show custom message
 	 */
 	/*window.addEventListener("beforeunload", function(e)
 	{

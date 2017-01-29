@@ -1,0 +1,138 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="turtle_main" id="bUd#PEl2R}1o10JBNXGh" deletable="false" x="177" y="17">
+    <statement name="TÖRZS">
+      <block type="turtle_loopfor" id="j(/SeT~J|weOnDg!m{83">
+        <field name="ISMÉTELD">6</field>
+        <statement name="TÖRZS">
+          <block type="turtle_functioncall" id="uoBA/@v+QY|HWVkW%J5:">
+            <field name="NÉV">hatszög</field>
+            <field name="PARAMÉTEREK">100</field>
+            <next>
+              <block type="turtle_turn" id="q(pb5~OkA};TPdgWEA.z">
+                <field name="IRÁNY">balra</field>
+                <field name="MENNYIT">60</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="turtle_pen" id="Wo+p.h.P3=Jz|0U9S`cJ">
+            <field name="IRÁNY">fel</field>
+            <next>
+              <block type="turtle_loopfor" id="5`L^5gDq9cvOsU6:i3;K">
+                <field name="ISMÉTELD">4</field>
+                <statement name="TÖRZS">
+                  <block type="turtle_go" id="c@v6J]1nH+-%LqG{!LZ(">
+                    <field name="IRÁNY">előre</field>
+                    <field name="MENNYIT">120</field>
+                    <next>
+                      <block type="turtle_fillcolor" id="!%_27C.w{`^}ViMT1#_-">
+                        <field name="SZÍN">White</field>
+                        <next>
+                          <block type="turtle_fill" id="5xtFS{@eLq2X_{~32h{z">
+                            <next>
+                              <block type="turtle_go" id="x]w1J!69l6:a#|!xb%5h">
+                                <field name="IRÁNY">előre</field>
+                                <field name="MENNYIT">-120</field>
+                                <next>
+                                  <block type="turtle_turn" id="[eUG}k,hUA8rzB4y.4R/">
+                                    <field name="IRÁNY">jobbra</field>
+                                    <field name="MENNYIT">30</field>
+                                    <next>
+                                      <block type="turtle_go" id="n%lmR-MFbCf*!0Y}TlPw">
+                                        <field name="IRÁNY">előre</field>
+                                        <field name="MENNYIT">120</field>
+                                        <next>
+                                          <block type="turtle_fillcolor" id="Uam-^J!n4N8PJuLs.1ZV">
+                                            <field name="SZÍN">#d3d3d3</field>
+                                            <next>
+                                              <block type="turtle_fill" id=")AxbSy#+o/WNdpU8CHhq">
+                                                <next>
+                                                  <block type="turtle_go" id="csFNe|rTJiCUN+aH8gq@">
+                                                    <field name="IRÁNY">előre</field>
+                                                    <field name="MENNYIT">-120</field>
+                                                    <next>
+                                                      <block type="turtle_turn" id="9,s^x.`tM8(!6)KSVlzR">
+                                                        <field name="IRÁNY">jobbra</field>
+                                                        <field name="MENNYIT">30</field>
+                                                        <next>
+                                                          <block type="turtle_go" id="Uj6=ISfJ|XEud,.bCUz-">
+                                                            <field name="IRÁNY">előre</field>
+                                                            <field name="MENNYIT">120</field>
+                                                            <next>
+                                                              <block type="turtle_fillcolor" id="Yt=LYVo`=_wQ/8!2pJ8R">
+                                                                <field name="SZÍN">#808080</field>
+                                                                <next>
+                                                                  <block type="turtle_fill" id="^]D2pu278sW1CYSIn]s5">
+                                                                    <next>
+                                                                      <block type="turtle_go" id="7W69Iagc?L458#a`jyA)">
+                                                                        <field name="IRÁNY">előre</field>
+                                                                        <field name="MENNYIT">-120</field>
+                                                                        <next>
+                                                                          <block type="turtle_turn" id="i9WjCnNBu8,Y3W;#{X{l">
+                                                                            <field name="IRÁNY">jobbra</field>
+                                                                            <field name="MENNYIT">30</field>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="turtle_functiondef" id="5up~SfK0AuC`N:.r^},?" x="617" y="22">
+    <field name="NÉV">hatszög</field>
+    <field name="PARAMÉTEREK">oldalhossz</field>
+    <statement name="TÖRZS">
+      <block type="turtle_linewidth" id="MG2G4xX8iT!;1wO.c%Ie">
+        <field name="VASTAGSÁG">10</field>
+        <next>
+          <block type="turtle_loopfor" id="D=[VB^qFB2@xA{:)DTiA">
+            <field name="ISMÉTELD">6</field>
+            <statement name="TÖRZS">
+              <block type="turtle_go" id="l_sc[x`H}NUklaJu4;6t">
+                <field name="IRÁNY">előre</field>
+                <field name="MENNYIT">oldalhossz</field>
+                <next>
+                  <block type="turtle_turn" id="P-?=QR)gs8!7!Z+|sz9a">
+                    <field name="IRÁNY">balra</field>
+                    <field name="MENNYIT">60</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

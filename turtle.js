@@ -98,48 +98,10 @@ var turn = function(dir, deg)
 };
 
 // fill
-var target, replace, count;
 var fill = function()
 {
-	// get the target color
-	target = canvas.getImageData(Math.round(turtle.x), Math.round(turtle.y), 1, 1);
-	
-	// get the replace color
-	var ctx = document.createElement("canvas").getContext("2d");
-	ctx.fillSytle = turtle.pen.fillcolor;
-	ctx.fillRect(0, 0, 1, 1);
-	replace = ctx.getImageData(0, 0, 1, 1);
-	count = 0;
-	
-	var points = [];
-	var point;
-	var pixel;
-	points.push([turtle.x, turtle.y]);
-	while (points.length > 0 && count < 100000)
-	{
-		point = points.pop();
-		canvas.putImageData(replace, point[0], point[1]);
-		
-		count++;
-		console.log(count, points.length, points);
-		
-		if (canvas.getImageData(point[0]+1, point[1], 1, 1).data.toString() === target.data.toString())
-		{
-			points.push([point[0]+1, point[1]]);
-		}
-		if (canvas.getImageData(point[0]-1, point[1], 1, 1).data.toString() === target.data.toString())
-		{
-			points.push([point[0]-1, point[1]]);
-		}
-		if (canvas.getImageData(point[0], point[1]+1, 1, 1).data.toString() === target.data.toString())
-		{
-			points.push([point[0], point[1]+1]);
-		}
-		if (canvas.getImageData(point[0], point[1]-1, 1, 1).data.toString() === target.data.toString())
-		{
-			points.push([point[0], point[1]-1]);
-		}
-	}
+	canvas.fillStyle = turtle.pen.fillcolor;
+	canvas.fillFlood(Math.round(turtle.x), Math.round(turtle.y), 0);
 };
 
 // set pen values
