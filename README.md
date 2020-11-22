@@ -1,6 +1,6 @@
 # Teknőcgrafika
 
-https://nekomajin42.github.io/teknocgrafika/
+https://nekomajin42.github.io/Tade/
 
 ## In english
 This is a client-side, web-based application to draw turtle graphics using [Blockly](https://github.com/google/blockly). It is fun to play with, but the interface is in hungarian, and currectly there are no plans to make it international. Sorry.
