@@ -1,0 +1,43 @@
+﻿<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="turtle_main" id="a6*Ffi,k{@{]4(MT+},)" deletable="false" x="332" y="62">
+    <field name="SEBESSÉG">-1</field>
+    <statement name="TÖRZS">
+      <block type="turtle_for" id="BlvYXjd#h4]=Uz{lE8s5">
+        <field name="ISMÉTELD">6</field>
+        <statement name="TÖRZS">
+          <block type="turtle_function_call" id="+X4AL_Gx*Y=N5r1hx].[">
+            <field name="NÉV">hatszög</field>
+            <field name="PARAMÉTEREK"></field>
+            <next>
+              <block type="turtle_turn" id="^@UCua/bR,+8;TENx=tL">
+                <field name="IRÁNY">balra</field>
+                <field name="MENNYIT">60</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="turtle_function_define" id="G0,Gq8h,fMBPZ=RAqQHJ" x="243" y="353">
+    <field name="NÉV">hatszög</field>
+    <field name="PARAMÉTEREK"></field>
+    <statement name="TÖRZS">
+      <block type="turtle_for" id="zYPW.d}lIR8$dxJyUTo6">
+        <field name="ISMÉTELD">6</field>
+        <statement name="TÖRZS">
+          <block type="turtle_go" id="}d?s)lSm~=6MX-xPPEha">
+            <field name="IRÁNY">előre</field>
+            <field name="MENNYIT">100</field>
+            <next>
+              <block type="turtle_turn" id="%n~iKv*Lhr!9gO0{wB7q">
+                <field name="IRÁNY">balra</field>
+                <field name="MENNYIT">60</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

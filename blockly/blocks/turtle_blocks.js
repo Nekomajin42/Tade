@@ -1,9 +1,5 @@
 "use strict";
 
-goog.provide("Blockly.Blocks.turtle");
-
-goog.require("Blockly.Blocks");
-
 /**
  * MAIN
  */
@@ -12,10 +8,16 @@ Blockly.Blocks["turtle_main"] =
 	init: function()
 	{
 		this.deletable = false;
-		this.appendStatementInput("TÖRZS")
-			.appendField("🐢");
-		this.setTooltip("Innen indul a teknős.");
-		this.setColour(120);
+		this.appendDummyInput()
+			.appendField(new Blockly.FieldDropdown([
+													["Gepárd", "-1"],
+													["Nyúl", "0"],
+													["Csiga", "20"]
+												]), "SEBESSÉG")
+			.appendField("teknős");
+		this.appendStatementInput("TÖRZS");
+		this.setTooltip("Helyezd ebbe a blokkba a kódot!");
+		this.setStyle("category_start");
 	}
 };
 
@@ -31,13 +33,13 @@ Blockly.Blocks["turtle_go"] =
 		this.appendDummyInput()
 			.appendField("Menj")
 			.appendField(new Blockly.FieldDropdown([
-													["előre", "előre"],
-													["hátra", "hátra"]
+													["előre", "1"],
+													["hátra", "-1"]
 												]), "IRÁNY")
-			.appendField("ennyit:")
-			.appendField(new Blockly.FieldTextInput("0"), "MENNYIT");
+			.appendField(new Blockly.FieldTextInput("0"), "MENNYIT")
+			.appendField("képpontot");
 		this.setTooltip("Adott irányba, adott pixelnyit megy a teknős.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
@@ -53,13 +55,13 @@ Blockly.Blocks["turtle_turn"] =
 		this.appendDummyInput()
 			.appendField("Fordulj")
 			.appendField(new Blockly.FieldDropdown([
-													["balra", "balra"],
-													["jobbra", "jobbra"]
+													["balra", "-1"],
+													["jobbra", "1"]
 												]), "IRÁNY")
-			.appendField("ennyit:")
-			.appendField(new Blockly.FieldTextInput("0"), "MENNYIT");
+			.appendField(new Blockly.FieldTextInput("0"), "MENNYIT")
+			.appendField("fokot");
 		this.setTooltip("Adott irányba, adott fokot fordul a teknős.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
@@ -75,7 +77,7 @@ Blockly.Blocks["turtle_fill"] =
 		this.appendDummyInput()
 			.appendField("Kitölt");
 		this.setTooltip("Kifesti a legutoljára rajzolt alakzatot.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
@@ -91,43 +93,43 @@ Blockly.Blocks["turtle_pen"] =
 		this.appendDummyInput()
 			.appendField("Tollat")
 			.appendField(new Blockly.FieldDropdown([
-													["fel", "fel"],
-													["le", "le"]
+													["fel", "false"],
+													["le", "true"]
 												]), "IRÁNY");
 		this.setTooltip("A teknős felemeli vagy leteszi a tollát.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
 /**
  * FILL COLOR
  */
-Blockly.Blocks["turtle_fillcolor"] =
+Blockly.Blocks["turtle_fill_color"] =
 {
 	init: function()
 	{
 		var color = new Blockly.FieldColour("White");
-		color.setColours(["Black", "Grey", "LightGrey", "White", "Blue", "LightBlue", "Green", "LightGreen", "Red", "Pink", "Orange", "Yellow"]).setColumns(4);
+		color.setColours(["White", "Silver", "Grey", "Black", "Red", "Maroon", "Yellow", "Olive", "Lime", "Green", "Cyan", "Teal", "Blue", "Navy", "Magenta", "Purple"]).setColumns(4);
 		
 		this.setPreviousStatement(true);
 		this.setNextStatement(true);
 		this.appendDummyInput()
-			.appendField("Kitöltő szín:")
+			.appendField("Kitöltőszín:")
 			.appendField(color, "SZÍN");
 		this.setTooltip("Megváltoztatja a teknős kitöltő színét.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
 /**
  * LINE COLOR
  */
-Blockly.Blocks["turtle_linecolor"] =
+Blockly.Blocks["turtle_line_color"] =
 {
 	init: function()
 	{
 		var color = new Blockly.FieldColour("Black");
-		color.setColours(["Black", "Grey", "LightGrey", "White", "Blue", "LightBlue", "Green", "LightGreen", "Red", "Pink", "Orange", "Yellow"]).setColumns(4);
+		color.setColours(["White", "Silver", "Grey", "Black", "Red", "Maroon", "Yellow", "Olive", "Lime", "Green", "Cyan", "Teal", "Blue", "Navy", "Magenta", "Purple"]).setColumns(4);
 		
 		this.setPreviousStatement(true);
 		this.setNextStatement(true);
@@ -135,14 +137,14 @@ Blockly.Blocks["turtle_linecolor"] =
 			.appendField("Vonalszín:")
 			.appendField(color, "SZÍN");
 		this.setTooltip("Megváltoztatja a teknős vonalszínét.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
 /**
  * PEN WIDTH
  */
-Blockly.Blocks["turtle_linewidth"] =
+Blockly.Blocks["turtle_line_width"] =
 {
 	init: function()
 	{
@@ -150,9 +152,10 @@ Blockly.Blocks["turtle_linewidth"] =
 		this.setNextStatement(true);
 		this.appendDummyInput()
 			.appendField("Vonalvastagság:")
-			.appendField(new Blockly.FieldTextInput("1"), "VASTAGSÁG");
+			.appendField(new Blockly.FieldTextInput("3"), "VASTAGSÁG")
+			.appendField("képpont");
 		this.setTooltip("Megváltoztatja a teknős vonalvastagságát.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
@@ -168,32 +171,32 @@ Blockly.Blocks["turtle_home"] =
 		this.appendDummyInput()
 			.appendField("Haza");
 		this.setTooltip("A teknős visszaugrik a kezdőpontba.");
-		this.setColour(240);
+		this.setStyle("category_draw");
 	}
 };
 
 /**
  * FOR LOOP
  */
-Blockly.Blocks["turtle_loopfor"] =
+Blockly.Blocks["turtle_for"] =
 {
 	init: function()
 	{
 		this.setPreviousStatement(true);
 		this.setNextStatement(true);
 		this.appendDummyInput()
-			.appendField("Ismételd ennyiszer:")
-			.appendField(new Blockly.FieldTextInput("1"), "ISMÉTELD");
+			.appendField("Ismételd")
+			.appendField(new Blockly.FieldTextInput("hányszor"), "ISMÉTELD");
 		this.appendStatementInput("TÖRZS");
 		this.setTooltip("Megismétli a blokk belsejében lévő utasításokat.");
-		this.setColour(0);
+		this.setStyle("category_control");
 	}
 };
 
 /**
  * WHILE LOOP
  */
-Blockly.Blocks["turtle_loopwhile"] =
+Blockly.Blocks["turtle_while"] =
 {
 	init: function()
 	{
@@ -201,10 +204,10 @@ Blockly.Blocks["turtle_loopwhile"] =
 		this.setNextStatement(true);
 		this.appendDummyInput()
 			.appendField("Ismételd amíg")
-			.appendField(new Blockly.FieldTextInput("1"), "ISMÉTELD");
+			.appendField(new Blockly.FieldTextInput("feltétel"), "ISMÉTELD");
 		this.appendStatementInput("TÖRZS");
 		this.setTooltip("Megismétli a blokk belsejében lévő utasításokat.");
-		this.setColour(0);
+		this.setStyle("category_control");
 	}
 };
 
@@ -219,17 +222,17 @@ Blockly.Blocks["turtle_if"] =
 		this.setNextStatement(true);
 		this.appendDummyInput()
 			.appendField("Ha")
-			.appendField(new Blockly.FieldTextInput("1"), "FELTÉTEL");
+			.appendField(new Blockly.FieldTextInput("feltétel"), "FELTÉTEL");
 		this.appendStatementInput("HA");
 		this.setTooltip("Ha a feltétel igaz, akkor elvégzi a blokk belsejében lévő utasításokat.");
-		this.setColour(0);
+		this.setStyle("category_control");
 	}
 };
 
 /**
  * IF-ELSE STATEMENT
  */
-Blockly.Blocks["turtle_ifelse"] =
+Blockly.Blocks["turtle_if_else"] =
 {
 	init: function()
 	{
@@ -237,20 +240,20 @@ Blockly.Blocks["turtle_ifelse"] =
 		this.setNextStatement(true);
 		this.appendDummyInput()
 			.appendField("Ha")
-			.appendField(new Blockly.FieldTextInput("1"), "FELTÉTEL");
+			.appendField(new Blockly.FieldTextInput("feltétel"), "FELTÉTEL");
 		this.appendStatementInput("HA");
 		this.appendDummyInput()
-			.appendField("különben")
-		this.appendStatementInput("KĂśLĂ–NBEN");
+			.appendField("Különben")
+		this.appendStatementInput("KÜLÖNBEN");
 		this.setTooltip("Ha a feltétel igaz, akkor az első csoportban lévő utasításokat végzi el, ha pedig hamis, akkor a második csoportban lévőket.");
-		this.setColour(0);
+		this.setStyle("category_control");
 	}
 };
 
 /**
  * VARIABLE DEFINITION
  */
-Blockly.Blocks["turtle_vardef"] =
+Blockly.Blocks["turtle_variable_define"] =
 {
 	init: function()
 	{
@@ -262,14 +265,14 @@ Blockly.Blocks["turtle_vardef"] =
 			.appendField("=")
 			.appendField(new Blockly.FieldTextInput("1"), "ÉRTÉK");
 		this.setTooltip("Létrehoz vagy megváltoztat egy változót a megadott névvel és értékkel.");
-		this.setColour(180);
+		this.setStyle("category_variable");
 	}
 };
 
 /**
  * RANDOM NUMBER
  */
-Blockly.Blocks["turtle_randomnumber"] =
+Blockly.Blocks["turtle_random_number"] =
 {
 	init: function()
 	{
@@ -283,32 +286,31 @@ Blockly.Blocks["turtle_randomnumber"] =
 			.appendField(":")
 			.appendField(new Blockly.FieldTextInput("10"), "IG");
 		this.setTooltip("Véletlenszerűen generál egy egész számot a megadott értékek között.");
-		this.setColour(180);
+		this.setStyle("category_variable");
 	}
 };
 
 /**
  * FUNCTION DEFINITON
  */
-Blockly.Blocks["turtle_functiondef"] =
+Blockly.Blocks["turtle_function_define"] =
 {
 	init: function()
 	{
 		this.appendDummyInput()
 			.appendField("Megtanul")
 			.appendField(new Blockly.FieldTextInput("művelet"), "NÉV")
-			.appendField("paraméterek:")
-			.appendField(new Blockly.FieldTextInput(""), "PARAMÉTEREK");
+			.appendField(new Blockly.FieldTextInput("paraméterek"), "PARAMÉTEREK");
 		this.appendStatementInput("TÖRZS");
 		this.setTooltip("Létrehoz egy függvényt a megadott névvel, bemeneti paraméterekkel és a blokk belsejében lévő műveletekkel.");
-		this.setColour(120);
+		this.setStyle("category_function");
 	}
 };
 
 /**
  * FUNCTION CALL
  */
-Blockly.Blocks["turtle_functioncall"] =
+Blockly.Blocks["turtle_function_call"] =
 {
 	init: function()
 	{
@@ -317,17 +319,16 @@ Blockly.Blocks["turtle_functioncall"] =
 		this.appendDummyInput()
 			.appendField("Végrehajt")
 			.appendField(new Blockly.FieldTextInput("művelet"), "NÉV")
-			.appendField("paraméterek:")
-			.appendField(new Blockly.FieldTextInput(""), "PARAMÉTEREK");
+			.appendField(new Blockly.FieldTextInput("paraméterek"), "PARAMÉTEREK");
 		this.setTooltip("Meghív egy függvényt a megadott névvel és bemeneti paraméterekkel.");
-		this.setColour(120);
+		this.setStyle("category_function");
 	}
 };
 
 /**
  * RANDOM COLOR
  */
-Blockly.Blocks["turtle_randomcolor"] =
+Blockly.Blocks["turtle_random_color"] =
 {
 	init: function()
 	{
@@ -336,11 +337,15 @@ Blockly.Blocks["turtle_randomcolor"] =
 		this.appendDummyInput()
 			.appendField("Véletlen")
 			.appendField(new Blockly.FieldDropdown([
-													["vonal", "vonal"],
-													["kitöltő", "kitöltő"]
+													["színes", "colorful"],
+													["szürke", "greyscale"]
+												]), "SZÍNEK")
+			.appendField(new Blockly.FieldDropdown([
+													["vonal", "linecolor"],
+													["kitöltő", "fillcolor"]
 												]), "MELYIK")
 			.appendField("szín");
 		this.setTooltip("Véletlenszerű színűre állítja a vonal vagy a kötöltés színét.");
-		this.setColour(120);
+		this.setStyle("category_function");
 	}
 };

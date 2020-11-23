@@ -1,22 +1,17 @@
 "use strict";
 
-goog.provide('Blockly.JavaScript.turtle');
-
-goog.require('Blockly.JavaScript');
-
 Blockly.JavaScript["turtle_main"] = function(block)
 {
-	// get parameters
 	var body = Blockly.JavaScript.statementToCode(block, "TÖRZS");
+	var delay = block.getFieldValue("SEBESSÉG");
 	
-	//return "function main() {\n" + body + "}\n";
+	turtle.wait = delay;
 	return body;
 };
 
 Blockly.JavaScript["turtle_go"] = function(block)
 {
-	// get values
-	var dir = (block.getFieldValue("IRÁNY") === "előre") ? 1 : -1;
+	var dir = block.getFieldValue("IRÁNY");
 	var dist = block.getFieldValue("MENNYIT");
 	
 	return "go(" + dir + ", " + dist + ");\n";
@@ -24,8 +19,7 @@ Blockly.JavaScript["turtle_go"] = function(block)
 
 Blockly.JavaScript["turtle_turn"] = function(block)
 {
-	// get values
-	var dir = (block.getFieldValue("IRÁNY") === "jobbra") ? 1 : -1;
+	var dir = block.getFieldValue("IRÁNY");
 	var deg = block.getFieldValue("MENNYIT");
 	
 	return "turn(" + dir + ", " + deg + ");\n";
@@ -38,21 +32,20 @@ Blockly.JavaScript["turtle_fill"] = function(block)
 
 Blockly.JavaScript["turtle_pen"] = function(block)
 {
-	var dir = (block.getFieldValue("IRÁNY") === "fel") ? false : true;
-	return "set('down', " + dir + ");\n";
+	return "set('down', " + (block.getFieldValue("IRÁNY") === "true") + ");\n";
 };
 
-Blockly.JavaScript["turtle_fillcolor"] = function(block)
+Blockly.JavaScript["turtle_fill_color"] = function(block)
 {
 	return "set('fillcolor', '" + block.getFieldValue("SZÍN") + "');\n";
 };
 
-Blockly.JavaScript["turtle_linecolor"] = function(block)
+Blockly.JavaScript["turtle_line_color"] = function(block)
 {
 	return "set('linecolor', '" + block.getFieldValue("SZÍN") + "');\n";
 };
 
-Blockly.JavaScript["turtle_linewidth"] = function(block)
+Blockly.JavaScript["turtle_line_width"] = function(block)
 {
 	return "set('linewidth', " + block.getFieldValue("VASTAGSÁG") + ");\n";
 };
@@ -62,9 +55,8 @@ Blockly.JavaScript["turtle_home"] = function(block)
 	return "home();\n";
 };
 
-Blockly.JavaScript["turtle_loopfor"] = function(block)
+Blockly.JavaScript["turtle_for"] = function(block)
 {
-	// get loop body
 	var stop = block.getFieldValue("ISMÉTELD");
 	var body = Blockly.JavaScript.statementToCode(block, "TÖRZS");
 	var i = "i" + block.id.replace(/\W/g, "").substring(0, 2);
@@ -72,9 +64,8 @@ Blockly.JavaScript["turtle_loopfor"] = function(block)
 	return "for (var " + i + "=0; " + i + "<" + stop + "; " + i + "++) {\n" + body + "}\n";
 };
 
-Blockly.JavaScript["turtle_loopwhile"] = function(block)
+Blockly.JavaScript["turtle_while"] = function(block)
 {
-	// get loop body
 	var stop = block.getFieldValue("ISMÉTELD");
 	var body = Blockly.JavaScript.statementToCode(block, "TÖRZS");
 	var i = "i" + block.id.replace(/\W/g, "").substring(0, 2);
@@ -84,16 +75,14 @@ Blockly.JavaScript["turtle_loopwhile"] = function(block)
 
 Blockly.JavaScript["turtle_if"] = function(block)
 {
-	// get loop body
 	var expr = block.getFieldValue("FELTÉTEL");
 	var body_if = Blockly.JavaScript.statementToCode(block, "HA");
 	
 	return "if (" + expr + ") {\n" + body_if + "}\n";
 };
 
-Blockly.JavaScript["turtle_ifelse"] = function(block)
+Blockly.JavaScript["turtle_if_else"] = function(block)
 {
-	// get loop body
 	var expr = block.getFieldValue("FELTÉTEL");
 	var body_if = Blockly.JavaScript.statementToCode(block, "HA");
 	var body_else = Blockly.JavaScript.statementToCode(block, "KÜLÖNBEN");
@@ -101,18 +90,16 @@ Blockly.JavaScript["turtle_ifelse"] = function(block)
 	return "if (" + expr + ") {\n" + body_if + "}\nelse {\n" + body_else + "}\n";
 };
 
-Blockly.JavaScript["turtle_vardef"] = function(block)
+Blockly.JavaScript["turtle_variable_define"] = function(block)
 {
-	// get parameters
 	var name = block.getFieldValue("NÉV");
 	var value = block.getFieldValue("ÉRTÉK");
 	
 	return "var " + name + "=" + value + ";\n";
 };
 
-Blockly.JavaScript["turtle_randomnumber"] = function(block)
+Blockly.JavaScript["turtle_random_number"] = function(block)
 {
-	// get parameters
 	var name = block.getFieldValue("NÉV");
 	var min = block.getFieldValue("TÓL");
 	var max = block.getFieldValue("IG");
@@ -120,29 +107,30 @@ Blockly.JavaScript["turtle_randomnumber"] = function(block)
 	return "var " + name + " = randomnumber(" + min + ", " + max + ");\n";
 };
 
-Blockly.JavaScript["turtle_functiondef"] = function(block)
+Blockly.JavaScript["turtle_function_define"] = function(block)
 {
-	// get parameters
 	var name = block.getFieldValue("NÉV");
 	var args = block.getFieldValue("PARAMÉTEREK");
+	args = (args === "paraméterek") ? "" : args;
 	var body = Blockly.JavaScript.statementToCode(block, "TÖRZS");
 	
 	return "function " + name + "(" + args + ") {\n" + body + "}\n";
 };
 
-Blockly.JavaScript["turtle_functioncall"] = function(block)
+Blockly.JavaScript["turtle_function_call"] = function(block)
 {
-	// get parameters
 	var name = block.getFieldValue("NÉV");
 	var args = block.getFieldValue("PARAMÉTEREK");
+	args = (args === "paraméterek") ? "" : args;
 	
 	return name + "(" + args + ");\n";
 };
 
-Blockly.JavaScript["turtle_randomcolor"] = function(block)
+Blockly.JavaScript["turtle_random_color"] = function(block)
 {
-	// get parameters
-	var which = (block.getFieldValue("MELYIK") === "vonal") ? "linecolor" : "fillcolor";
+	var which = block.getFieldValue("MELYIK");
+	var color = block.getFieldValue("SZÍNEK");
+	console.log(typeof color);
 	
-	return "randomcolor('" + which + "');\n";
+	return "randomcolor('" + which + "', '" + color + "');\n";
 };

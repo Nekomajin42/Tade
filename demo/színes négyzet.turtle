@@ -1,0 +1,87 @@
+﻿<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="turtle_main" id="xO;aB`4DyijRq`+!S`#Z" deletable="false" x="397" y="94">
+    <field name="SEBESSÉG">-1</field>
+    <statement name="TÖRZS">
+      <block type="turtle_line_width" id="MCABMZJI/iP1p7i-s4Lp">
+        <field name="VASTAGSÁG">5</field>
+        <next>
+          <block type="turtle_random_color" id="mO,cWHHH;Oz/M|)UU@wM">
+            <field name="SZÍNEK">colorful</field>
+            <field name="MELYIK">linecolor</field>
+            <next>
+              <block type="turtle_for" id="H}O!2qHSF_j(x)`Yx6~[">
+                <field name="ISMÉTELD">4</field>
+                <statement name="TÖRZS">
+                  <block type="turtle_go" id="0i_]/3Duk$4P(4r=^A}2">
+                    <field name="IRÁNY">1</field>
+                    <field name="MENNYIT">100</field>
+                    <next>
+                      <block type="turtle_turn" id="#F^/C~%QV`2C3-1C3VV}">
+                        <field name="IRÁNY">1</field>
+                        <field name="MENNYIT">90</field>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="turtle_pen" id="9MGx6G3A{_dzS%iYT^%a">
+                    <field name="IRÁNY">false</field>
+                    <next>
+                      <block type="turtle_turn" id=",#8D%K:/mN5nrOGdXUe:">
+                        <field name="IRÁNY">1</field>
+                        <field name="MENNYIT">45</field>
+                        <next>
+                          <block type="turtle_go" id="l%T~BWS^^b:*Oz#s0UfV">
+                            <field name="IRÁNY">1</field>
+                            <field name="MENNYIT">20</field>
+                            <next>
+                              <block type="turtle_pen" id=".Tlyy.-=x`nB63U5B:Ww">
+                                <field name="IRÁNY">true</field>
+                                <next>
+                                  <block type="turtle_random_color" id="EV@Sdk#)G=VAU(18u%Mc">
+                                    <field name="SZÍNEK">colorful</field>
+                                    <field name="MELYIK">fillcolor</field>
+                                    <next>
+                                      <block type="turtle_fill" id="N2@o=!$xugl~[RUJrHKH">
+                                        <next>
+                                          <block type="turtle_pen" id="v;$Qhw|F.123-0}gt.a:">
+                                            <field name="IRÁNY">false</field>
+                                            <next>
+                                              <block type="turtle_go" id=":+KXjxFPKnyqvL3L5M1u">
+                                                <field name="IRÁNY">-1</field>
+                                                <field name="MENNYIT">20</field>
+                                                <next>
+                                                  <block type="turtle_turn" id="y+Hs*cpdrX;a.M5E?|4p">
+                                                    <field name="IRÁNY">-1</field>
+                                                    <field name="MENNYIT">45</field>
+                                                    <next>
+                                                      <block type="turtle_pen" id="Zn$vXUSDFoYmB3QEHxF1">
+                                                        <field name="IRÁNY">true</field>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

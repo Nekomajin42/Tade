@@ -1,6 +1,10 @@
-.blocklyMainBackground {
-stroke-width: 0 !important;
-cursor: move !important;}
+.blocklyTreeRow {
+box-sizing: content-box;
+margin: 0 5px 5px 5px;
+padding: 2px 5px 5px 5px !important;
+height: 22px !important;
+border: none !important;
+border-radius: 5px;}
 
-.blocklyFlyout .blocklyWorkspace {
-transform: translate(0, 50px);}
+.blocklyTreeRow:not(.blocklyTreeSelected):hover {
+background-color: WhiteSmoke !important;}
