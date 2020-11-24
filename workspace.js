@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	 * Create the turtle at the middle of the screen
 	 */
 	turtle.origin = {};
-	turtle.origin.x = Math.round(document.body.clientWidth/2);
+	turtle.origin.x = Math.round(document.body.clientWidth/3*2);
 	turtle.origin.y = Math.round(document.body.clientHeight/2);
 	turtle.birth();
 	turtle.drop();
@@ -55,6 +55,7 @@ window.addEventListener("DOMContentLoaded", function() {
 		theme: Blockly.Themes.Turtle,
 		renderer: "thrasos",
 		comments: false,
+		disable: false,
 		sounds: false,
 		trashcan: true,
 		scrollbars: false,
@@ -73,14 +74,14 @@ window.addEventListener("DOMContentLoaded", function() {
 	workspace.addChangeListener(Blockly.Events.disableOrphans);
 	window.LoopTrap = 1000000;
 	
-	let xml_text = "<xml><block type='turtle_main' deletable='false' x='100' y='50'></block></xml>";
+	let xml_text = "<xml><block type='turtle_main' deletable='false' x='250' y='50'></block></xml>";
 	let xml = Blockly.Xml.textToDom(xml_text);
 	Blockly.Xml.domToWorkspace(xml, workspace);
 	
 	/**
 	 * Start code execution
 	 */
-	workspace.registerButtonCallback("start", function() {
+	document.querySelector("#toolbox-start").addEventListener("click", function() {
 		window.clearInterval(delay);
 		draw();
 	});
@@ -88,7 +89,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	/**
 	 * Stop code execution
 	 */
-	workspace.registerButtonCallback("stop", function() {
+	document.querySelector("#toolbox-stop").addEventListener("click", function() {
 		turtle.sleep = true;
 		window.clearInterval(delay);
 	});
@@ -96,7 +97,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	/**
 	 * Save the workspace as image (.png)
 	 */
-	workspace.registerButtonCallback("photo", function() {
+	document.querySelector("#toolbox-photo").addEventListener("click", function() {
 		let composite = document.createElement("canvas"); // create a new canvas
 		let ctx = composite.getContext("2d");
 		composite.width = document.body.clientWidth;
@@ -124,7 +125,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	/**
 	 * Save the workspace as XML (.turtle)
 	 */
-	workspace.registerButtonCallback("save", function() {
+	document.querySelector("#toolbox-save").addEventListener("click", function() {
 		let xml = Blockly.Xml.workspaceToDom(workspace);
 		let xml_text = Blockly.Xml.domToPrettyText(xml);
 		let file = new File([xml_text], "kód.turtle", {type: "text/xml;charset=utf-8"});
@@ -134,7 +135,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	/**
 	 * Open the workspace from XML (.turtle)
 	 */
-	workspace.registerButtonCallback("open", function() {
+	document.querySelector("#toolbox-open").addEventListener("click", function() {
 		if (window.confirm("Ha új fájlt nyitsz meg, a jelenlegi kód törlődni fog.\nSzeretnéd törölni a jelenlegi kódot?") === true) {
 			Blockly.mainWorkspace.clear();
 			canvas.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);

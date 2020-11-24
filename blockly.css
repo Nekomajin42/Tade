@@ -1,10 +1,52 @@
+.blocklyToolboxDiv {
+margin: 0;
+padding: 0;}
+
+.blocklyToolboxContents {
+padding: 5px;}
+
 .blocklyTreeRow {
 box-sizing: content-box;
-margin: 0 5px 5px 5px;
-padding: 2px 5px 5px 5px !important;
-height: 22px !important;
-border: none !important;
+margin: 5px 5px 5px 5px;
+padding: 5px 7px 7px 7px !important;
+text-align: left;
+font-size: 16px;
+color:#ffffff;
+border: none;
 border-radius: 5px;}
 
-.blocklyTreeRow:not(.blocklyTreeSelected):hover {
-background-color: WhiteSmoke !important;}
+[aria-selected=false] .blocklyTreeRow:hover {
+background: #00a0a0 !important;}
+
+.blocklyTreeLabel {}
+
+.blocklyTreeIcon {
+display: none !important;}
+
+.blocklyTreeSeparator {
+margin: 5px 5px 5px 5px;
+height: 10px;
+background: none;
+border: none;}
+
+.toolbox-button {
+box-sizing: content-box;
+margin: 5px 5px 5px 5px;
+padding: 6px 7px 7px 7px;
+text-align: left;
+font-size: 16px;
+color:#ffffff;
+background: #009090;
+border: none;
+border-radius: 5px;
+outline: none !important;}
+
+.toolbox-button:hover {
+background: #00a0a0;}
+
+.toolbox-button .toolbox-icon {
+display: inline-block;
+margin: 0;
+padding: 0;
+width: 24px;
+text-align: center;}

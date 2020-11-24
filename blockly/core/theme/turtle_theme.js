@@ -4,9 +4,9 @@ Blockly.Themes.Turtle = {};
 
 Blockly.Themes.Turtle.blockStyles = {
 	category_start: {
-		colourPrimary: "#7F7F7F",
-		colourSecondary: "#999999",
-		colourTertiary: "#666666",
+		colourPrimary: "#008080",
+		colourSecondary: "#00a0a0",
+		colourTertiary: "#006060",
 		hat: "cap"
 	},
 	category_draw: {
@@ -48,8 +48,8 @@ Blockly.Themes.Turtle.categoryStyles = {
 
 Blockly.Themes.Turtle.componentStyles = {
 	workspaceBackgroundColour: "#ffffff",
-	toolboxBackgroundColour: "#40e0d0",
-	flyoutBackgroundColour: "#40e0d0",
+	toolboxBackgroundColour: "#008080",
+	flyoutBackgroundColour: "#008080",
 	flyoutOpacity: "1",
 	scrollbarColour: "#40e0d0",
 	scrollbarOpacity: "1"

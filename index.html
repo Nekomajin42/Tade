@@ -22,6 +22,10 @@
 		<script src="blockly/javascript_compressed.js" type="text/javascript"></script>
 		<!--<script src="blockly/blocks_compressed.js" type="text/javascript"></script>-->
 		
+		<!-- customization -->
+		<script src="blockly/custom/toolbox_category.js" type="text/javascript"></script>
+		<script src="blockly/custom/toolbox_button.js" type="text/javascript"></script>
+		
 		<!-- turtle -->
 		<script src="blockly/blocks/turtle_blocks.js" type="text/javascript"></script>
 		<script src="blockly/core/theme/turtle_theme.js" type="text/javascript"></script>
@@ -45,7 +49,7 @@
 		<canvas id="turtle-layer"></canvas>
 		<div id="blockly-layer"></div>
 		<xml id="toolbox">
-			<category name="Rajz" categorystyle="category_draw" expanded="true">
+			<category name="Rajzolás" icon="✏️" categorystyle="category_draw" expanded="true">
 				<block type="turtle_go"></block>
 				<block type="turtle_turn"></block>
 				<block type="turtle_pen"></block>
@@ -55,28 +59,28 @@
 				<block type="turtle_fill"></block>
 				<block type="turtle_home"></block>
 			</category>
-			<category name="Vezérlés" categorystyle="category_control">
+			<category name="Vezérlés" icon="🕹️" categorystyle="category_control">
 				<block type="turtle_for"></block>
 				<block type="turtle_while"></block>
 				<block type="turtle_if"></block>
 				<block type="turtle_if_else"></block>
 			</category>
-			<category name="Függvények" categorystyle="category_function">
+			<category name="Függvények" icon="️🧩" categorystyle="category_function">
 				<block type="turtle_function_define"></block>
 				<block type="turtle_function_call"></block>
 				<block type="turtle_random_color"></block>
 			</category>
-			<category name="Változók" categorystyle="category_variable">
+			<category name="Változók" icon="🏷️" categorystyle="category_variable">
 				<block type="turtle_variable_define"></block>
 				<block type="turtle_random_number"></block>
 			</category>
-			<category name="Eszköztár" expanded="true">
-				<button text="🐢 Start" callbackKey="start"></button>
-				<button text="✋ Stop" callbackKey="stop"></button>
-				<button text="📷 Fotó" callbackKey="photo"></button>
-				<button text="💾 Mentés" callbackKey="save"></button>
-				<button text="📂 Megnyitás" callbackKey="open"></button>
-			</category>
+			<sep gap="24"></sep>
+			<button text="Start" icon="🐢" id="toolbox-start"></button>
+			<button text="Stop" icon="✋" id="toolbox-stop"></button>
+			<sep gap="24"></sep>
+			<button text="Fotó" icon="📷" id="toolbox-photo"></button>
+			<button text="Mentés" icon="💾" id="toolbox-save"></button>
+			<button text="Megnyitás" icon="📂" id="toolbox-open"></button>
 		</xml>
 	</body>
 </html>
