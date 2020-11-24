@@ -53,13 +53,14 @@ window.addEventListener("DOMContentLoaded", function() {
 	workspace = Blockly.inject("blockly-layer", {
 		toolbox: document.querySelector("#toolbox"),
 		theme: Blockly.Themes.Turtle,
+		media: "blockly/media/",
 		renderer: "thrasos",
 		comments: false,
 		disable: false,
+		collapse: false,
 		sounds: false,
 		trashcan: true,
 		scrollbars: false,
-		collapse: false,
 		zoom:
 		{
 			controls: true,
@@ -98,28 +99,25 @@ window.addEventListener("DOMContentLoaded", function() {
 	 * Save the workspace as image (.png)
 	 */
 	document.querySelector("#toolbox-photo").addEventListener("click", function() {
-		let composite = document.createElement("canvas"); // create a new canvas
+		let composite = document.createElement("canvas");
 		let ctx = composite.getContext("2d");
 		composite.width = document.body.clientWidth;
 		composite.height = document.body.clientHeight;
 		ctx.fillStyle = "White";
 		ctx.fillRect(0, 0, document.body.clientWidth, document.body.clientHeight);
 		
-		let img = document.createElement("img"); // create a new image
-		svgAsDataUri(document.querySelector("#blockly-layer svg"), {}, function(uri) // load SVG to data URI
-		{
-			img.src = uri;
-		});
-		console.log(document.querySelector("#blockly-layer svg"));
-		
-		ctx.drawImage(c, 0, 0); // draw them to the canvas
-		ctx.drawImage(t, 0, 0);
-		ctx.drawImage(img, 0, 0);
-		
-		composite.toBlob(function(blob) // save the whole stuff
-		{
-			saveAs(blob, "rajz.png");
-		});
+		let img = document.createElement("img");
+		img.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(document.querySelector("#blockly-layer svg").outerHTML)));
+		img.onload = function() {
+			ctx.drawImage(img, 0, 0);
+			ctx.drawImage(c, 0, 0);
+			ctx.drawImage(t, 0, 0);
+			
+			composite.toBlob(function(blob)
+			{
+				saveAs(blob, "rajz.png");
+			});
+		}
 	});
 	
 	/**

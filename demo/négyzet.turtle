@@ -1,0 +1,22 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="turtle_main" id="79SMSTC-P9*C]wZds3(`" deletable="false" x="250" y="50">
+    <field name="SEBESSÉG">-1</field>
+    <statement name="TÖRZS">
+      <block type="turtle_for" id="LMIz*KnX{YYzXDA3pAb|">
+        <field name="ISMÉTELD">4</field>
+        <statement name="TÖRZS">
+          <block type="turtle_go" id="yzaW]vBIP@L]+$EZyC^M">
+            <field name="IRÁNY">1</field>
+            <field name="MENNYIT">100</field>
+            <next>
+              <block type="turtle_turn" id="GTYEhJ8|r8wKPgUXmG?H">
+                <field name="IRÁNY">-1</field>
+                <field name="MENNYIT">90</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

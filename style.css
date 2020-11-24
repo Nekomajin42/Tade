@@ -25,7 +25,7 @@ left: 0;
 z-index: 1;
 width: 100%;
 height: 100%;
-background-color: White;}
+background-color: transparent;}
 
 #turtle-layer {
 position: absolute;
@@ -34,7 +34,7 @@ left: 0;
 z-index: 2;
 width: 100%;
 height: 100%;
-background-color: Transparent;}
+background-color: transparent;}
 
 #blockly-layer {
 position: absolute;
@@ -45,40 +45,4 @@ width: 100%;
 height: 100% !important;}
 
 #blockly-layer svg {
-background-color: Transparent !important;}
-
-#toolbar {
-position: fixed;
-top: 0;
-right: 0;
-z-index: 5;
-margin: 5px 20px 0 0;
-padding: 0 0 5px 0;
-width: 50px;
-border-radius: 10px;
-background-color: rgba(64, 224, 208, 0.8);}
-
-#toolbar input[type=button], #toolbar fieldset {
-margin: 5px 5px 0 5px;
-padding: 2px;
-width: 40px;
-height: 40px;
-border: 1px solid Transparent;
-outline: none;
-border-radius: 5px;
-background-color: Transparent;
-font-size: 1.5rem;}
-
-#toolbar input[type=button]:not(:disabled):hover, #toolbar fieldset:hover {
-border: 1px solid Grey;
-background-color: rgba(228, 228, 228, 0.8);}
-
-#toolbar input[type=range] {
-margin: 6px 0 5px 0;
-width: 32px;}
-
-hr {
-margin: 5px 10px 0 10px;
-width: 30px;
-border: 1px solid Black;
-border-radius: 2px;}
+background-color: transparent !important;}

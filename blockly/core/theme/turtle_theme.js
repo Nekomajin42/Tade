@@ -5,44 +5,39 @@ Blockly.Themes.Turtle = {};
 Blockly.Themes.Turtle.blockStyles = {
 	category_start: {
 		colourPrimary: "#008080",
-		colourSecondary: "#00a0a0",
-		colourTertiary: "#006060",
+		colourTertiary: "#008080",
 		hat: "cap"
 	},
 	category_draw: {
-		colourPrimary: "#3F3FBF",
-		colourSecondary: "#6565CC",
-		colourTertiary: "#323298"
+		colourPrimary: "#4169E1",
+		colourTertiary: "#4169E1"
 	},
 	category_control: {
-		colourPrimary: "#BF3F3F",
-		colourSecondary: "#CB6565",
-		colourTertiary: "#983333"
+		colourPrimary: "#FF6347",
+		colourTertiary: "#FF6347"
 	},
 	category_function: {
-		colourPrimary: "#3FBF3F",
-		colourSecondary: "#65CC66",
-		colourTertiary: "#329933"
+		colourPrimary: "#FF1493",
+		colourTertiary: "#FF1493"
 	},
 	category_variable: {
-		colourPrimary: "#40BEBF",
-		colourSecondary: "#66CACB",
-		colourTertiary: "#339798"
+		colourPrimary: "#2E8B57",
+		colourTertiary: "#2E8B57"
 	}
 };
 
 Blockly.Themes.Turtle.categoryStyles = {
 	category_draw: {
-		colour: "#3F3FBF"
+		colour: "#4169E1"
 	},
 	category_control: {
-		colour: "#BF3F3F"
+		colour: "#FF6347"
 	},
 	category_function: {
-		colour: "#3FBF3F"
+		colour: "#FF1493"
 	},
 	category_variable: {
-		colour: "#40BEBF"
+		colour: "#2E8B57"
 	}
 };
 
@@ -51,7 +46,7 @@ Blockly.Themes.Turtle.componentStyles = {
 	toolboxBackgroundColour: "#008080",
 	flyoutBackgroundColour: "#008080",
 	flyoutOpacity: "1",
-	scrollbarColour: "#40e0d0",
+	scrollbarColour: "#800080",
 	scrollbarOpacity: "1"
 };
 

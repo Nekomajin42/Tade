@@ -14,9 +14,11 @@ class ToolboxCategory extends Blockly.ToolboxCategory {
 	setSelected(isSelected){
 		if (isSelected) {
 			this.rowDiv_.style.backgroundColor = this.colour_;
+			//this.rowDiv_.style.color = "#000000";
 		}
 		else {
 			this.rowDiv_.style.backgroundColor = "#009090";
+			//this.rowDiv_.style.color = "#ffffff";
 		}
 		
 		Blockly.utils.aria.setState(/** @type {!Element} */ (this.htmlDiv_),

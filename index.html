@@ -15,7 +15,6 @@
 		<script src="external/acorn_interpreter.js" type="text/javascript"></script>
 		<script src="external/FileSaver.js" type="text/javascript"></script>
 		<script src="external/floodfill.min.js" type="text/javascript"></script>
-		<script src="external/saveSvgAsPng.js" type="text/javascript"></script>
 		
 		<!-- engine -->
 		<script src="blockly/blockly_compressed.js" type="text/javascript"></script>
@@ -34,20 +33,9 @@
 		<script src="workspace.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<!--<form id="toolbar">
-			<input type="button" id="play" value="►" title="Indítás / folytatás" />
-			<input type="button" id="pause" disabled value="❚❚" title="Szünet / léptetés" />
-			<fieldset title="Sebesség">
-				<input type="range" id="delay" min="0" max="1000" step="250" value="0" />
-			</fieldset>
-			<hr />
-			<input type="button" id="img" value="📷" title="Képernyő mentés" />
-			<input type="button" id="save" value="💾" title="Kód mentés" />
-			<input type="button" id="open" value="📁" title="Kód megnyitás" />
-		</form>-->
+		<div id="blockly-layer"></div>
 		<canvas id="canvas-layer"></canvas>
 		<canvas id="turtle-layer"></canvas>
-		<div id="blockly-layer"></div>
 		<xml id="toolbox">
 			<category name="Rajzolás" icon="✏️" categorystyle="category_draw" expanded="true">
 				<block type="turtle_go"></block>
