@@ -46,7 +46,7 @@ Blockly.Themes.Turtle.componentStyles = {
 	toolboxBackgroundColour: "#008080",
 	flyoutBackgroundColour: "#008080",
 	flyoutOpacity: "1",
-	scrollbarColour: "#800080",
+	scrollbarColour: "#00a0a0",
 	scrollbarOpacity: "1"
 };
 

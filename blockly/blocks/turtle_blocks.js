@@ -9,13 +9,14 @@ Blockly.Blocks["turtle_main"] =
 	{
 		this.deletable = false;
 		this.appendDummyInput()
+			.appendField("Teknős")
 			.appendField(new Blockly.FieldDropdown([
-													["Gepárd", "-1"],
-													["Nyúl", "0"],
-													["Csiga", "20"]
-												]), "SEBESSÉG")
-			.appendField("teknős");
-		this.appendStatementInput("TÖRZS");
+													["gepárd", "-1"],
+													["nyúl", "0"],
+													["csiga", "20"]
+												]), "SEBESSÉG");
+		this.appendStatementInput("TÖRZS")
+			.appendField("🐢");
 		this.setTooltip("Helyezd ebbe a blokkba a kódot!");
 		this.setStyle("category_start");
 	}

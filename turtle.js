@@ -27,11 +27,11 @@ turtle.drop = function() {
 	}
 	
 	tanvas.beginPath();
-	tanvas.arc(turtle.x, turtle.y, 10, 0, 2*Math.PI);
+	tanvas.arc(turtle.x, turtle.y, 12, 0, 2*Math.PI);
 	tanvas.stroke();
 	
-	let x = turtle.x + 10 * Math.cos(turtle.angle);
-	let y = turtle.y + 10 * Math.sin(turtle.angle);
+	let x = turtle.x + 12 * Math.cos(turtle.angle);
+	let y = turtle.y + 12 * Math.sin(turtle.angle);
 	tanvas.lineWidth = 6;
 	tanvas.strokeStyle = turtle.pen.linecolor;
 	tanvas.setLineDash([0]);
